@@ -1,12 +1,13 @@
 ﻿using Medex.Models;
+using Medex.Repositorios.Generico;
 
 namespace Medex.Repositorios.Interfaces
 {
-    public interface IClientesRepositorio
+    public interface IClientesRepositorio 
     {
         Task<List<ClienteModel>> BuscarTodosClientes();
         Task<ClienteModel> BuscarPorCpf(string cpf);
-        Task<ClienteModel> Adicionar(ClienteModel cliente);  
+        Task<ClienteModel> Adicionar(ClienteModel cliente);
         Task<ClienteModel> Atualizar(ClienteModel cliente,string cpf);
         Task<bool> Apagar(string cpf);
     }

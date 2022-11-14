@@ -3,7 +3,7 @@ using Medex.Models;
 using Medex.Repositorios.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace Medex.Repositorios
+namespace Medex.Repositorios.Implementacao
 {
     public class ClienteRepositorio : IClientesRepositorio
     {
@@ -15,17 +15,17 @@ namespace Medex.Repositorios
 
         public async Task<ClienteModel> BuscarPorCpf(string cpf)
         {
-         return await _dbContext.Clientes.FirstOrDefaultAsync(x => x.cpf == cpf);
+            return await _dbContext.Clientes.FirstOrDefaultAsync(x => x.cpf == cpf);
         }
-        
+
         public async Task<List<ClienteModel>> BuscarTodosClientes()
         {
             return await _dbContext.Clientes.ToListAsync();
         }
         public async Task<ClienteModel> Adicionar(ClienteModel cliente)
         {
-           await _dbContext.Clientes.AddAsync(cliente);
-           await _dbContext.SaveChangesAsync();
+            await _dbContext.Clientes.AddAsync(cliente);
+            await _dbContext.SaveChangesAsync();
 
             return cliente;
         }
@@ -55,6 +55,5 @@ namespace Medex.Repositorios
 
         }
 
-        
     }
 }

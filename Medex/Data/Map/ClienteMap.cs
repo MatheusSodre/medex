@@ -18,7 +18,7 @@ namespace Medex.Data.Map
             builder.Property(x => x.tratamento).HasMaxLength(50);
             builder.Property(x => x.tratamento).HasMaxLength(50);
             builder.Property(x => x.nome).IsRequired().HasMaxLength(120);
-            builder.Property(x => x.sobreno).HasMaxLength(120);
+            builder.Property(x => x.sobrenome).HasMaxLength(120);
             builder.Property(x => x.endereco).HasMaxLength(120);
             builder.Property(x => x.numero).HasMaxLength(50);
             builder.Property(x => x.complemento).HasMaxLength(50);
@@ -29,8 +29,7 @@ namespace Medex.Data.Map
             builder.Property(x => x.idioma).HasMaxLength(50);
             builder.Property(x => x.telefone).HasMaxLength(50);
             builder.Property(x => x.email).HasMaxLength(50);
-            builder.Property(x => x.categoria).HasMaxLength(50);
-           
+            builder.Property(x => x.categoria).HasMaxLength(50);           
         }
     }
 }

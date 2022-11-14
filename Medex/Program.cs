@@ -1,5 +1,8 @@
+using Medex.Businnes.Implementacao;
+using Medex.Businnes.Interfaces;
 using Medex.Data;
-using Medex.Repositorios;
+using Medex.Repositorios.Generico;
+using Medex.Repositorios.Implementacao;
 using Medex.Repositorios.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,16 +15,32 @@ namespace Medex
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            var connectionStringMysql = builder.Configuration.GetConnectionString("ConnectionMysql");
-            
+
+
+            // config acesso banco mysql 
+            //var connectionStringMysql = builder.Configuration.GetConnectionString("ConnectionMysql");
+            //builder.Services.AddDbContext<SistemaTarefasDBContex>(
+            //    option => option.UseMySql(
+            //    connectionStringMysql,
+            //    ServerVersion.Parse("8.0.30"))
+            //);
+
+            // config acesso banco postgres 
+            var connectionStringPostgres = builder.Configuration.GetConnectionString("ConnectionPostgres");
             builder.Services.AddDbContext<SistemaTarefasDBContex>(
-                option => option.UseMySql(
-                connectionStringMysql,
-                ServerVersion.Parse("8.0.30"))
+                option => option.UseNpgsql(connectionStringPostgres)
             );
 
+
+            //version Api
+            builder.Services.AddApiVersioning();
+
+            // Dependency
             builder.Services.AddScoped<IClientesRepositorio, ClienteRepositorio>();
-            
+            builder.Services.AddScoped<IClientesBussines, ClienteBusinnes>();
+            builder.Services.AddScoped<ISolicitacaoBusinnes, SolicitacaoBusinnes>();
+            builder.Services.AddScoped(typeof(IRepositorio<>),typeof(GenericoRepositorio<>));
+
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();

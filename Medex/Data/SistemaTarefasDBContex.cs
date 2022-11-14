@@ -11,10 +11,13 @@ namespace Medex.Data
         }
 
         public DbSet<ClienteModel> Clientes { get; set; }
+
+        public DbSet<SolicitacaoModel> Solicitacao { get; set; }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new ClienteMap());
+            modelBuilder.ApplyConfiguration(new SolicitacaoMap());
             base.OnModelCreating(modelBuilder); 
         }
 
