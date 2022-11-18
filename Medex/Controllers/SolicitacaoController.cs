@@ -1,6 +1,8 @@
 ﻿using Medex.Businnes.Interfaces;
+using Medex.Data.VO;
 using Medex.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 
 namespace Medex.Controllers
@@ -20,42 +22,60 @@ namespace Medex.Controllers
 
         // GET: api/<SolicitacaoController>
         [HttpGet]
-        public async Task<ActionResult<List<SolicitacaoModel>>> BuscarSolicitacao()
-        {
-            List<SolicitacaoModel> solicitacao = await _solicitacaoBusinnes.BuscarSolicitacao();
-            return Ok(solicitacao);
+        [ProducesResponseType((200),Type = typeof(List<SolicitacaoVO>))]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
+        public ActionResult<List<SolicitacaoVO>> Get()
+        {        
+            return Ok(_solicitacaoBusinnes.BuscarSolicitacao());
         }
 
         // GET api/<SolicitacaoController>/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<SolicitacaoModel>> BuscarPorId(int id)
+        [ProducesResponseType((200), Type = typeof(SolicitacaoVO))]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
+        public ActionResult<SolicitacaoVO> Get(int id)
         {
-            SolicitacaoModel solicitacao = await _solicitacaoBusinnes.BuscarPorId(id);
+            var solicitacao = _solicitacaoBusinnes.BuscarPorId(id);
+            if (solicitacao == null) return BadRequest();
             return Ok(solicitacao);
         }
 
         // POST api/<SolicitacaoController>
         [HttpPost]
-        public async Task<ActionResult<SolicitacaoModel>> Cadastrar([FromBody] SolicitacaoModel SolicitacaoModel)
+        [ProducesResponseType((200), Type = typeof(SolicitacaoVO))]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
+        public  ActionResult<SolicitacaoVO> Post([FromBody] SolicitacaoVO SolicitacaoModel)
         {
-            SolicitacaoModel Solicitacao = await _solicitacaoBusinnes.Adicionar(SolicitacaoModel);
+            if (SolicitacaoModel == null) return BadRequest();
+            var Solicitacao =  _solicitacaoBusinnes.Adicionar(SolicitacaoModel);
             return Ok(Solicitacao);
         }
 
         // PUT api/<SolicitacaoController>/5
-        [HttpPut("{id}")]
-        public async Task<ActionResult<SolicitacaoModel>> Atualizar (int id, [FromBody] SolicitacaoModel SolicitacaoModel)
+        [HttpPut]
+        [ProducesResponseType((200), Type = typeof(SolicitacaoVO))]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
+        public ActionResult<SolicitacaoVO> Put ([FromBody] SolicitacaoVO SolicitacaoModel)
         {
-            SolicitacaoModel.id = id;
-            SolicitacaoModel solicitacao = await _solicitacaoBusinnes.Atualizar(SolicitacaoModel, id);
+            if (SolicitacaoModel == null) return BadRequest();
+            var solicitacao =  _solicitacaoBusinnes.Atualizar(SolicitacaoModel);
             return Ok(solicitacao);
         }
 
         // DELETE api/<SolicitacaoController>/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<SolicitacaoModel>> Delete(int id)
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
+        public ActionResult<SolicitacaoVO> Delete(int id)
         {
-            bool Apagado = await _solicitacaoBusinnes.Apagar(id);
+            bool Apagado =  _solicitacaoBusinnes.Apagar(id);
             return Ok(Apagado);
         }
     }

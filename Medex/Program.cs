@@ -1,10 +1,11 @@
-using Medex.Businnes.Implementacao;
+
+using Medex.Businnes.Implementations;
 using Medex.Businnes.Interfaces;
 using Medex.Data;
-using Medex.Repositorios.Generico;
-using Medex.Repositorios.Implementacao;
-using Medex.Repositorios.Interfaces;
+using Medex.Repository.Generic;
+using Microsoft.AspNetCore.Rewrite;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 
 namespace Medex
 {
@@ -36,15 +37,28 @@ namespace Medex
             builder.Services.AddApiVersioning();
 
             // Dependency
-            builder.Services.AddScoped<IClientesRepositorio, ClienteRepositorio>();
+           
             builder.Services.AddScoped<IClientesBussines, ClienteBusinnes>();
             builder.Services.AddScoped<ISolicitacaoBusinnes, SolicitacaoBusinnes>();
-            builder.Services.AddScoped(typeof(IRepositorio<>),typeof(GenericoRepositorio<>));
+            builder.Services.AddScoped(typeof(IRepository<>),typeof(GenericRepository<>));
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerGen(c => {
+                c.SwaggerDoc("v1",
+                    new OpenApiInfo
+                    {
+                        Title = "Medex Api Teste Conhecimento",
+                        Version = "v1",
+                        Description = "Aplicando Conhecimento AspNet Core",
+                        Contact = new OpenApiContact
+                        {
+                            Name = "Matheus Sodré",
+                            Url = new Uri ("https://github.com/MatheusSodre/medex")
+                        }
+                    }) ;
+            });
 
             var app = builder.Build();
 
@@ -52,7 +66,16 @@ namespace Medex
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
-                app.UseSwaggerUI();
+                app.UseSwaggerUI(c =>
+                {
+                    c.RoutePrefix = "swagger";
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json",
+                        "Medex Api Teste Conhecimento - v1");
+                });
+                
+                var option = new RewriteOptions();
+                option.AddRedirect("^$","swagger");
+                app.UseRewriter(option);
             }
 
             app.UseHttpsRedirection();

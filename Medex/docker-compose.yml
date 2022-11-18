@@ -1,17 +1,17 @@
 version: '3.7'
 
 services:
-  #db-teste:
-  #  image: postgres
-  #  container_name: postgres2
-  #  environment:
-  #    - POSTGRES_USER=postgres
-  #    - POSTGRES_PASSWORD=postgres
-  #    - POSTGRES_DB=Medex
-  #  networks:
-  #    - localdev
-  #  ports:
-  #    - "5433:5432"
+  db-teste:
+    image: postgres
+    container_name: postgres2
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=Medex
+    networks:
+      - localdev
+    ports:
+      - "5433:5432"
 
   medex:
     container_name: Medex
@@ -22,15 +22,15 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-#    depends_on:
-#     - "db-teste"
+    depends_on:
+     - "db-teste"
 
-#    networks:
-#      - localdev
+    networks:
+      - localdev
 
-#networks:
-#  localdev:
-#    driver: bridge
+networks:
+  localdev:
+    driver: bridge
 
 #version: '3.7'
 #services:

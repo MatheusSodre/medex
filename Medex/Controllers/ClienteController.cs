@@ -1,6 +1,7 @@
 ﻿using Medex.Businnes.Interfaces;
 using Medex.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace Medex.Controllers
 {
@@ -17,37 +18,38 @@ namespace Medex.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<ClienteModel>>> BuscarTodosClientes()
+        public  ActionResult<List<ClienteVO>> Get()
         {
-            List<ClienteModel> clientes = await _clientesBusinnes.BuscarTodosClientes();
-            return Ok(clientes);
+            return Ok(_clientesBusinnes.BuscarTodosClientes());
         }
         [HttpGet("{id}")]
-        public async Task<ActionResult<ClienteModel>> BuscarPorId(int id)
+        public ActionResult<ClienteVO> Get(int id)
         {
-            ClienteModel cliente = await _clientesBusinnes.BuscarPorId(id);
+            var cliente =  _clientesBusinnes.BuscarPorId(id);
+            if (cliente == null) return NotFound();
             return Ok(cliente);
         }
         [HttpPost]
-        public async Task<ActionResult<ClienteModel>> Cadastrar([FromBody] ClienteModel clienteModel)
+        public ActionResult<ClienteVO> Post([FromBody] ClienteVO clienteModel)
         {
-            ClienteModel cliente = await _clientesBusinnes.Adicionar(clienteModel);
+            if (clienteModel == null) return NotFound();
+            var cliente =  _clientesBusinnes.Adicionar(clienteModel);
             return Ok(cliente);
         }
         // PUT api/<ClienteController>/5
-        [HttpPut("{id}")]
-        public async Task<ActionResult<ClienteModel>> Atualizar(int id, [FromBody] ClienteModel ClienteModel)
+        [HttpPut]
+        public ActionResult<ClienteModel> Put([FromBody] ClienteVO clienteModel)
         {
-            ClienteModel.id = id;
-            ClienteModel cliente = await _clientesBusinnes.Atualizar(ClienteModel, id);
+            if (clienteModel == null) return NotFound();
+            var cliente = _clientesBusinnes.Atualizar(clienteModel);
             return Ok(cliente);
         }
 
         // DELETE api/<ClienteController>/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<ClienteModel>> Delete(int id)
+        public ActionResult<ClienteModel> Delete(int id)
         {
-            bool Apagado = await _clientesBusinnes.Apagar(id);
+            bool Apagado =  _clientesBusinnes.Apagar(id);
             return Ok(Apagado);
         }
         //[HttpPost("/Upload")]
