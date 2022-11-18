@@ -1,10 +1,10 @@
-﻿using Medex.Models.Base;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Medex.Models
+namespace Medex.Data.VO
 {
-    public class SolicitacaoModel : BaseEntity
+    public class SolicitacaoVO 
     {
-       
+        public int id { get; set; }
         public string cpf { get; set; }
         public string detalhes_prd_id { get; set; }
         public int kit { get; set; }

@@ -1,14 +1,14 @@
-﻿using Medex.Models;
-using Medex.Repositorios.Generico;
+﻿using Medex.Data.VO;
+
 
 namespace Medex.Businnes.Interfaces
 {
     public interface ISolicitacaoBusinnes  
     {
-        Task<List<SolicitacaoModel>> BuscarSolicitacao();
-        Task<SolicitacaoModel> BuscarPorId(int id);
-        Task<SolicitacaoModel> Adicionar(SolicitacaoModel solicitacao);
-        Task<SolicitacaoModel> Atualizar(SolicitacaoModel solicitacao, int id);
-        Task<bool> Apagar(int id);
+        List<SolicitacaoVO> BuscarSolicitacao();
+        SolicitacaoVO BuscarPorId(int id);
+        SolicitacaoVO Adicionar(SolicitacaoVO solicitacao);
+        SolicitacaoVO Atualizar(SolicitacaoVO solicitacao);
+        bool Apagar(int id);
     }
 }

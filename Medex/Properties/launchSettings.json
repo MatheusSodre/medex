@@ -3,7 +3,7 @@
     "Medex": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "swagger",
+      //"launchUrl": "swagger",
       //"launchUrl": "api/Cliente/v1",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
@@ -14,7 +14,7 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "swagger",
+      //"launchUrl": "swagger",
       //"launchUrl": "api/Cliente/v1",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"

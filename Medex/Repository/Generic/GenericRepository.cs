@@ -3,47 +3,48 @@ using Medex.Models.Base;
 using Microsoft.EntityFrameworkCore;
 
 
-namespace Medex.Repositorios.Generico
+namespace Medex.Repository.Generic
 {
-    public  class GenericoRepositorio<T> : IRepositorio<T> where T : BaseEntity
+    public  class GenericRepository<T> : IRepository<T> where T : BaseEntity
     {
         private readonly SistemaTarefasDBContex _dbContext;
         private DbSet<T> dataset;
 
-        public GenericoRepositorio(SistemaTarefasDBContex sistemaTarefasDBContex)
+        public GenericRepository(SistemaTarefasDBContex sistemaTarefasDBContex)
         {
             _dbContext = sistemaTarefasDBContex;
             dataset = _dbContext.Set<T>();
         }
-        public async Task<T> BuscarPorId(int id)
+        public T BuscarPorId(int id)
         {
-            try
+           var result = dataset.SingleOrDefault(x => x.id.Equals(id));
+            if (result != null)
             {
-                return await dataset.FirstOrDefaultAsync(x => x.id == id);
+                try
+                {
+                   return result;
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
             }
-            catch (Exception)
+            else
             {
-                throw;
+                throw new Exception($"Solicitação para o ID:{id} não foi encontrado");
             }
         }
         
-        public async Task<List<T>> BuscarTodos()
+        public List<T> BuscarTodos()
         {
-            try
-            {
-                return await dataset.ToListAsync();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+                return  dataset.ToList();   
         }
-        public async Task<T> Adicionar(T item)
+        public  T Adicionar(T item)
         {
             try
             {
-                await dataset.AddAsync(item);
-                await _dbContext.SaveChangesAsync();
+                 dataset.Add(item);
+                 _dbContext.SaveChanges();
                 return item;
             }
             catch (Exception)
@@ -51,19 +52,16 @@ namespace Medex.Repositorios.Generico
                 throw;
             }
         }
-        public async Task<T> Atualizar(T item)
+        public T Atualizar(T item)
         {
-           
             var result = dataset.SingleOrDefault(x => x.id.Equals(item.id));
-
-            //var result = dataset.FirstOrDefaultAsync(x => x.id == item.id);
             if (result != null)
             {
                 try
                 {
                     //dataset.Update(item);
                     _dbContext.Entry(result).CurrentValues.SetValues(item);
-                    await _dbContext.SaveChangesAsync();
+                    _dbContext.SaveChanges();
                     return item;
                 }
                  catch (Exception)
@@ -77,7 +75,7 @@ namespace Medex.Repositorios.Generico
             }
         }
 
-        public async Task<bool> Apagar(int id)
+        public bool Apagar(int id)
         {
             var result = dataset.SingleOrDefault(x => x.id.Equals(id));
             if (result != null)
@@ -85,7 +83,7 @@ namespace Medex.Repositorios.Generico
                 try
                 {
                     dataset.Remove(result);
-                    await _dbContext.SaveChangesAsync();
+                    _dbContext.SaveChanges();
                     return true;
                 }
                 catch (Exception)
@@ -98,7 +96,5 @@ namespace Medex.Repositorios.Generico
                 throw new Exception($"Solicitação para o ID:{id} não foi encontrado");
             }
         }
-
-        
     }
 }
