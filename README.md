@@ -7,3 +7,8 @@
 * [Value Objects](https://learn.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/implement-value-objects)
 * [Docker](https://www.docker.com/)
 
+## Instalação 
+* Rodar Docker  (docker compose up -d --build)
+* Rodar Migrations (Add-Migration InitialCreate)
+* Depois de gerar migration Rodar (Update-Database)
+* Executar Programa 
