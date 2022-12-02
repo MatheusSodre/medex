@@ -3,6 +3,7 @@ using Medex.Businnes.Implementations;
 using Medex.Businnes.Interfaces;
 using Medex.Configurations;
 using Medex.Data;
+using Medex.Repository;
 using Medex.Repository.Generic;
 using Medex.Services;
 using Medex.Services.Implementations;
