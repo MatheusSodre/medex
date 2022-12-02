@@ -1,15 +1,27 @@
 ﻿using Medex.Models.Base;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Medex.Models
 {
+    
     public class SolicitacaoModel : BaseEntity
     {
-       
-        public string cpf { get; set; }
-        public string detalhes_prd_id { get; set; }
-        public int kit { get; set; }
-        public string intervalo_desde { get; set; }
-        public string intervalo_ate { get; set; }
-        public string frequencia { get; set; }
+        
+        public string? Cpf { get; set; }
+
+        
+        public string? DetalhesPrdId { get; set; }
+
+        
+        public int Kit { get; set; }
+
+        
+        public string? IntervaloDesde { get; set; }
+
+        
+        public string? IntervaloAte { get; set; }
+
+        
+        public string? Frequencia { get; set; }
     }
 }

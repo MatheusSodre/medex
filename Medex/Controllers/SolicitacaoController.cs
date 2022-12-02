@@ -1,6 +1,7 @@
 ﻿using Medex.Businnes.Interfaces;
 using Medex.Data.VO;
 using Medex.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 
@@ -8,6 +9,7 @@ using System;
 namespace Medex.Controllers
 {
     [ApiVersion("1")]
+    [Authorize("Bearer")]
     [Route("api/[controller]/v{version:apiVersion}")]
     [ApiController]
     public class SolicitacaoController : ControllerBase

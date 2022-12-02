@@ -1,11 +1,20 @@
 
 using Medex.Businnes.Implementations;
 using Medex.Businnes.Interfaces;
+using Medex.Configurations;
 using Medex.Data;
 using Medex.Repository.Generic;
+using Medex.Services;
+using Medex.Services.Implementations;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Text;
 
 namespace Medex
 {
@@ -15,8 +24,48 @@ namespace Medex
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
+            var tokenConfigurations = new TokenConfiguration();
 
+            new ConfigureFromConfigurationOptions<TokenConfiguration>(
+                builder.Configuration.GetSection("TokenConfigurations")
+                )
+                .Configure(tokenConfigurations);
+
+            builder.Services.AddSingleton(tokenConfigurations);
+
+            builder.Services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = tokenConfigurations.Issuer,
+                    ValidAudience = tokenConfigurations.Audience,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenConfigurations.Secret))
+                };
+            });
+
+            builder.Services.AddAuthorization(auth =>
+            {
+                auth.AddPolicy("Bearer", new AuthorizationPolicyBuilder()
+                    .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
+                    .RequireAuthenticatedUser().Build());
+            });
+
+            // Add services to the container.
+            builder.Services.AddCors(options => options.AddDefaultPolicy(builder => 
+            {
+                builder.AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+            }));
 
             // config acesso banco mysql 
             //var connectionStringMysql = builder.Configuration.GetConnectionString("ConnectionMysql");
@@ -40,6 +89,12 @@ namespace Medex
            
             builder.Services.AddScoped<IClientesBussines, ClienteBusinnes>();
             builder.Services.AddScoped<ISolicitacaoBusinnes, SolicitacaoBusinnes>();
+            builder.Services.AddScoped<ILoginBussines,LoginBussines>();
+
+            builder.Services.AddTransient<ITokenService, TokenService>();
+
+            builder.Services.AddScoped<IUserRepository,IUserRepository>();
+
             builder.Services.AddScoped(typeof(IRepository<>),typeof(GenericRepository<>));
 
             builder.Services.AddControllers();
@@ -63,8 +118,7 @@ namespace Medex
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
+            
                 app.UseSwagger();
                 app.UseSwaggerUI(c =>
                 {
@@ -76,12 +130,13 @@ namespace Medex
                 var option = new RewriteOptions();
                 option.AddRedirect("^$","swagger");
                 app.UseRewriter(option);
-            }
+            
 
             app.UseHttpsRedirection();
 
-            app.UseAuthorization();
+            app.UseCors();
 
+            app.UseAuthorization();
 
             app.MapControllers();
 

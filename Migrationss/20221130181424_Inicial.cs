@@ -6,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Medex.Migrations
 {
-    public partial class inicial : Migration
+    public partial class Inicial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -14,7 +14,7 @@ namespace Medex.Migrations
                 name: "Clientes",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "integer", nullable: false)
+                    id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     cpf = table.Column<string>(type: "text", nullable: false),
                     sigla = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
@@ -46,7 +46,7 @@ namespace Medex.Migrations
                 name: "Solicitacao",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "integer", nullable: false)
+                    id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     cpf = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     detalhes_prd_id = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),

@@ -5,6 +5,7 @@ namespace Medex.Models.Base
     public class BaseEntity
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int id { get; set; }
+        [Column("id")]
+        public long Id { get; set; }
     }
 }

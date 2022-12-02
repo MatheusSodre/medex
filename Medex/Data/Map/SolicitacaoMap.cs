@@ -8,13 +8,13 @@ namespace Medex.Data.Map
     {
         public void Configure(EntityTypeBuilder<SolicitacaoModel> builder)
         {
-            builder.HasKey(x => x.id);
-            builder.Property(x => x.cpf).HasMaxLength(50);
-            builder.Property(x => x.detalhes_prd_id).HasMaxLength(50);
-            builder.Property(x => x.kit).HasMaxLength(50);
-            builder.Property(x => x.intervalo_desde).HasMaxLength(50);
-            builder.Property(x => x.intervalo_ate).HasMaxLength(50);
-            builder.Property(x => x.frequencia).HasMaxLength(50);            
+            builder.HasKey(x => x.Id);
+            builder.Property(x => x.Cpf).HasMaxLength(50);
+            builder.Property(x => x.DetalhesPrdId).HasMaxLength(50);
+            builder.Property(x => x.Kit).HasMaxLength(50);
+            builder.Property(x => x.IntervaloDesde).HasMaxLength(50);
+            builder.Property(x => x.IntervaloAte).HasMaxLength(50);
+            builder.Property(x => x.Frequencia).HasMaxLength(50);            
         }
     }
 }

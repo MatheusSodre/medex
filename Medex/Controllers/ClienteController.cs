@@ -1,11 +1,14 @@
 ﻿using Medex.Businnes.Interfaces;
+using Medex.Data.VO;
 using Medex.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 
 namespace Medex.Controllers
 {
     [ApiVersion("1")]
+    [Authorize("Bearer")]
     [Route("api/[controller]/v{version:apiVersion}")]
     [ApiController]
     public class ClienteController : ControllerBase
@@ -18,6 +21,10 @@ namespace Medex.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType((200), Type = typeof(ClienteVO))]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
         public  ActionResult<List<ClienteVO>> Get()
         {
             return Ok(_clientesBusinnes.BuscarTodosClientes());
@@ -30,6 +37,9 @@ namespace Medex.Controllers
             return Ok(cliente);
         }
         [HttpPost]
+        [ProducesResponseType((200), Type = typeof(ClienteVO))]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
         public ActionResult<ClienteVO> Post([FromBody] ClienteVO clienteModel)
         {
             if (clienteModel == null) return NotFound();
@@ -38,8 +48,12 @@ namespace Medex.Controllers
         }
         // PUT api/<ClienteController>/5
         [HttpPut]
+        [ProducesResponseType((200), Type = typeof(ClienteVO))]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
         public ActionResult<ClienteModel> Put([FromBody] ClienteVO clienteModel)
         {
+
             if (clienteModel == null) return NotFound();
             var cliente = _clientesBusinnes.Atualizar(clienteModel);
             return Ok(cliente);
@@ -47,6 +61,9 @@ namespace Medex.Controllers
 
         // DELETE api/<ClienteController>/5
         [HttpDelete("{id}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
         public ActionResult<ClienteModel> Delete(int id)
         {
             bool Apagado =  _clientesBusinnes.Apagar(id);

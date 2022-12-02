@@ -11,13 +11,13 @@ namespace Medex.Data.Implementations
             if (origin == null) return null;
             return new SolicitacaoModel
             {
-                id = origin.id,
-                cpf = origin.cpf,
-                detalhes_prd_id = origin.detalhes_prd_id,
-                kit = origin.kit,  
-                intervalo_desde = origin.intervalo_desde,
-                intervalo_ate = origin.intervalo_ate,
-                frequencia = origin.frequencia
+                Id = origin.Id,
+                Cpf = origin.Cpf,
+                DetalhesPrdId = origin.DetalhesPrdId,
+                Kit = origin.Kit,  
+                IntervaloDesde = origin.IntervaloDesde,
+                IntervaloAte = origin.IntervaloAte,
+                Frequencia = origin.Frequencia
             };
         }
         public  SolicitacaoVO Parse(SolicitacaoModel origin)
@@ -25,13 +25,13 @@ namespace Medex.Data.Implementations
             if (origin == null) return null;
             return new SolicitacaoVO
             {
-                id = origin.id,
-                cpf = origin.cpf,
-                detalhes_prd_id = origin.detalhes_prd_id,
-                kit = origin.kit,
-                intervalo_desde = origin.intervalo_desde,
-                intervalo_ate = origin.intervalo_ate,
-                frequencia = origin.frequencia
+                Id = origin.Id,
+                Cpf = origin.Cpf,
+                DetalhesPrdId = origin.DetalhesPrdId,
+                Kit = origin.Kit,
+                IntervaloDesde = origin.IntervaloDesde,
+                IntervaloAte = origin.IntervaloAte,
+                Frequencia = origin.Frequencia
             };
         }
         public List<SolicitacaoModel> Parse(List<SolicitacaoVO> origin)

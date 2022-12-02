@@ -17,7 +17,7 @@ namespace Medex.Repository.Generic
         }
         public T BuscarPorId(int id)
         {
-           var result = dataset.SingleOrDefault(x => x.id.Equals(id));
+           var result = dataset.SingleOrDefault(x => x.Id.Equals(id));
             if (result != null)
             {
                 try
@@ -54,7 +54,7 @@ namespace Medex.Repository.Generic
         }
         public T Atualizar(T item)
         {
-            var result = dataset.SingleOrDefault(x => x.id.Equals(item.id));
+            var result = dataset.SingleOrDefault(x => x.Id.Equals(item.Id));
             if (result != null)
             {
                 try
@@ -71,13 +71,13 @@ namespace Medex.Repository.Generic
             }
             else
             {
-                throw new Exception($"Solicitação para o ID:{item.id} não foi encontrado");
+                throw new Exception($"Solicitação para o ID:{item.Id} não foi encontrado");
             }
         }
 
         public bool Apagar(int id)
         {
-            var result = dataset.SingleOrDefault(x => x.id.Equals(id));
+            var result = dataset.SingleOrDefault(x => x.Id.Equals(id));
             if (result != null)
             {
                 try
