@@ -11,7 +11,6 @@ namespace Medex.Data.Map
         public void Configure(EntityTypeBuilder<ClienteModel> builder)
         {
             builder.HasKey(x => new { x.Id, x.Cpf });
-            //builder.Property(x => x.id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
             builder.Property(x => x.Sigla).HasMaxLength(50);
             builder.Property(x => x.Especialidade).HasMaxLength(50);
             builder.Property(x => x.Cat).HasMaxLength(50);

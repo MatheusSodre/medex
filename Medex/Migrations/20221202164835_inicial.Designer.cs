@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Medex.Migrations
 {
     [DbContext(typeof(SistemaTarefasDBContex))]
-    [Migration("20221130181424_Inicial")]
-    partial class Inicial
+    [Migration("20221202164835_inicial")]
+    partial class inicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -34,117 +34,97 @@ namespace Medex.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
                     b.Property<string>("Cpf")
-                        .HasColumnType("text")
-                        .HasColumnName("cpf");
+                        .HasColumnType("text");
 
                     b.Property<string>("Bairro")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("character varying(50)")
-                        .HasColumnName("bairro");
+                        .HasColumnType("character varying(50)");
 
                     b.Property<string>("Cat")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("character varying(50)")
-                        .HasColumnName("cat");
+                        .HasColumnType("character varying(50)");
 
                     b.Property<string>("Categoria")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("character varying(50)")
-                        .HasColumnName("categoria");
+                        .HasColumnType("character varying(50)");
 
                     b.Property<string>("Cep")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("character varying(50)")
-                        .HasColumnName("cep");
+                        .HasColumnType("character varying(50)");
 
                     b.Property<string>("Complemento")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("character varying(50)")
-                        .HasColumnName("complemento");
+                        .HasColumnType("character varying(50)");
 
                     b.Property<DateTime>("CreateAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("create_at");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("character varying(50)")
-                        .HasColumnName("email");
+                        .HasColumnType("character varying(50)");
 
                     b.Property<string>("Endereco")
                         .IsRequired()
                         .HasMaxLength(120)
-                        .HasColumnType("character varying(120)")
-                        .HasColumnName("endereco");
+                        .HasColumnType("character varying(120)");
 
                     b.Property<string>("Especialidade")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("character varying(50)")
-                        .HasColumnName("especialidade");
+                        .HasColumnType("character varying(50)");
 
                     b.Property<string>("Idioma")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("character varying(50)")
-                        .HasColumnName("idioma");
+                        .HasColumnType("character varying(50)");
 
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasMaxLength(120)
-                        .HasColumnType("character varying(120)")
-                        .HasColumnName("nome");
+                        .HasColumnType("character varying(120)");
 
                     b.Property<int>("Numero")
                         .HasMaxLength(50)
-                        .HasColumnType("integer")
-                        .HasColumnName("numero");
+                        .HasColumnType("integer");
 
                     b.Property<string>("Pais")
                         .IsRequired()
                         .HasMaxLength(5)
-                        .HasColumnType("character varying(5)")
-                        .HasColumnName("pais");
+                        .HasColumnType("character varying(5)");
 
                     b.Property<string>("Sigla")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("character varying(50)")
-                        .HasColumnName("sigla");
+                        .HasColumnType("character varying(50)");
 
                     b.Property<string>("Sobrenome")
                         .IsRequired()
                         .HasMaxLength(120)
-                        .HasColumnType("character varying(120)")
-                        .HasColumnName("sobrenome");
+                        .HasColumnType("character varying(120)");
 
                     b.Property<string>("Telefone")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("character varying(50)")
-                        .HasColumnName("telefone");
+                        .HasColumnType("character varying(50)");
 
                     b.Property<string>("Tratamento")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("character varying(50)")
-                        .HasColumnName("tratamento");
+                        .HasColumnType("character varying(50)");
 
                     b.Property<string>("Uf")
                         .IsRequired()
                         .HasMaxLength(5)
-                        .HasColumnType("character varying(5)")
-                        .HasColumnName("uf");
+                        .HasColumnType("character varying(5)");
 
                     b.Property<DateTime>("UpdateAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("update_at");
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id", "Cpf");
 
@@ -163,41 +143,71 @@ namespace Medex.Migrations
                     b.Property<string>("Cpf")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("character varying(50)")
-                        .HasColumnName("cpf");
+                        .HasColumnType("character varying(50)");
 
                     b.Property<string>("DetalhesPrdId")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("character varying(50)")
-                        .HasColumnName("detalhes_prd_id");
+                        .HasColumnType("character varying(50)");
 
                     b.Property<string>("Frequencia")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("character varying(50)")
-                        .HasColumnName("frequencia");
+                        .HasColumnType("character varying(50)");
 
                     b.Property<string>("IntervaloAte")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("character varying(50)")
-                        .HasColumnName("intervalo_ate");
+                        .HasColumnType("character varying(50)");
 
                     b.Property<string>("IntervaloDesde")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("character varying(50)")
-                        .HasColumnName("intervalo_desde");
+                        .HasColumnType("character varying(50)");
 
                     b.Property<int>("Kit")
                         .HasMaxLength(50)
-                        .HasColumnType("integer")
-                        .HasColumnName("kit");
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
                     b.ToTable("Solicitacao");
+                });
+
+            modelBuilder.Entity("Medex.Models.UserModel", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)");
+
+                    b.Property<string>("RefreshToken")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)");
+
+                    b.Property<DateTime>("RefreshTokenExperyTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
                 });
 #pragma warning restore 612, 618
         }

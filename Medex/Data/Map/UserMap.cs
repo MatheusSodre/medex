@@ -13,7 +13,7 @@ namespace Medex.Data.Map
             builder.Property(x => x.FullName).HasMaxLength(255);
             builder.Property(x => x.Password).HasMaxLength(255);
             builder.Property(x => x.RefreshToken).HasMaxLength(255);
-            //builder.Property(x => x.RefreshTokenExperyTime).HasMaxLength(50);
+            builder.Property(x => x.RefreshTokenExperyTime).HasMaxLength(50);
         }
     }
 }

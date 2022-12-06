@@ -32,6 +32,8 @@ namespace Medex
                 )
                 .Configure(tokenConfigurations);
 
+
+            var key = Encoding.UTF8.GetBytes(tokenConfigurations.Secret);
             builder.Services.AddSingleton(tokenConfigurations);
 
             builder.Services.AddAuthentication(options =>
@@ -49,7 +51,7 @@ namespace Medex
                     ValidateIssuerSigningKey = true,
                     ValidIssuer = tokenConfigurations.Issuer,
                     ValidAudience = tokenConfigurations.Audience,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenConfigurations.Secret))
+                    IssuerSigningKey = new SymmetricSecurityKey(key)
                 };
             });
 
@@ -59,6 +61,7 @@ namespace Medex
                     .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
                     .RequireAuthenticatedUser().Build());
             });
+            
 
             // Add services to the container.
             builder.Services.AddCors(options => options.AddDefaultPolicy(builder => 
@@ -67,7 +70,7 @@ namespace Medex
                 .AllowAnyMethod()
                 .AllowAnyHeader();
             }));
-
+            
             // config acesso banco mysql 
             //var connectionStringMysql = builder.Configuration.GetConnectionString("ConnectionMysql");
             //builder.Services.AddDbContext<SistemaTarefasDBContex>(
@@ -94,11 +97,12 @@ namespace Medex
 
             builder.Services.AddTransient<ITokenService, TokenService>();
 
-            builder.Services.AddScoped<IUserRepository,IUserRepository>();
+            builder.Services.AddScoped<IUserRepository,UserRepository>();
 
             builder.Services.AddScoped(typeof(IRepository<>),typeof(GenericRepository<>));
 
             builder.Services.AddControllers();
+
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(c => {

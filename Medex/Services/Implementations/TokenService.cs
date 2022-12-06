@@ -9,9 +9,10 @@ namespace Medex.Services.Implementations
 {
     public class TokenService : ITokenService
     {
-        private TokenConfiguration _configuration;
+        private readonly TokenConfiguration _configuration;
         public string GenerateAccessToken(IEnumerable<Claim> claims)
         {
+            
             var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.Secret));
             var signinCredetials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
 

@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Medex.Controllers
 {
     [ApiVersion("1")]
-    [Route("api/[controller]/v{version:apiVerssion}")]
+    [Route("api/[controller]/v{version:apiVersion}")]
     [ApiController]
     public class AuthController : ControllerBase
     {

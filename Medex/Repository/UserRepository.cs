@@ -2,8 +2,6 @@
 using Medex.Data.VO;
 using Medex.Models;
 using Medex.Repository.Generic;
-using System.Data;
-using System.Runtime.Intrinsics.Arm;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -20,7 +18,6 @@ namespace Medex.Repository
 
         public UserModel ValidateCredencials(UserVo user)
         {
-
             var pass = ComputeHash(user.Password, new SHA256CryptoServiceProvider());
             return _dbContext.Users.FirstOrDefault(u => (u.UserName == user.UserName) && (u.Password == pass));
         }
